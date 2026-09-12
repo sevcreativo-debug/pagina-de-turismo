@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paquetes y Tours | Viajes Angel</title>
+<meta name="description" content="Explora todos nuestros paquetes turísticos en Bolivia, Perú y la Amazonía: Uyuni, Cusco, La Paz, Copacabana y más.">
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="loader">
+  <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="loader-flamingo">
+  <div class="loader-text">Viajes <span class="accent" style="color:var(--gold);font-size:1.7rem;">Angel</span></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">Preparando tu próxima aventura...</div>
+</div>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-icon.png" alt="Viajes Angel">
+      <div class="brand-text"><b>Viajes Angel</b><span>PERÚ · BOLIVIA</span></div>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="paquetes.html">Paquetes y Tours</a></li>
+        <li><a href="preguntas.html">Preguntas Frecuentes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="nav-cta" href="https://wa.me/51996253851" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Reservar</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Menú"><span></span></button>
+  </div>
+</header>
+<div class="nav-overlay"></div>
+
+<section class="page-hero" style="--bg-img:url('assets/img/uyuni-flags.jpg');">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> <i class="fa-solid fa-chevron-right" style="font-size:.6rem;"></i> Paquetes y Tours</div>
+    <h1 data-reveal>Paquetes y Full Days</h1>
+    <p data-reveal data-delay="100">Elige tu próxima aventura entre nuestras rutas por Bolivia, Perú y la Amazonía.</p>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="container">
+    <div class="tour-tabs" id="tabs" data-reveal>
+      <button data-cat="all" class="active">Todos</button>
+      <button data-cat="bolivia">Bolivia</button>
+      <button data-cat="peru">Perú</button>
+      <button data-cat="combo">Combos Perú-Bolivia</button>
+      <button data-cat="amazonas">Amazonía</button>
+    </div>
+    <div class="tour-grid" id="grid-all"></div>
+  </div>
+</section>
+
+<section class="pad-sm">
+  <div class="container">
+    <div class="cta-block" data-reveal="zoom">
+      <div>
+        <h2>¿No encuentras la ruta que buscas?</h2>
+        <p>Armamos itinerarios a medida según tus fechas, presupuesto y nivel de aventura.</p>
+      </div>
+      <a href="https://wa.me/51996253851" target="_blank" rel="noopener" class="btn btn-primary" style="background:#fff;color:var(--pink-dark);"><i class="fa-brands fa-whatsapp"></i> Cotizar mi viaje</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<a class="wa-float" href="https://wa.me/51996253851?text=Hola%20Viajes%20Angel%2C%20quiero%20informaci%C3%B3n%20de%20un%20paquete." target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="totop" aria-label="Subir"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/footer.js"></script>
+<script>
+function cardHTML(t){
+  return '<div class="tour-card" data-reveal data-cat="'+t.category+'">'+
+    '<a href="tour.html?slug='+t.slug+'" class="tour-media">'+
+      '<span class="badge '+t.badge+'">'+t.badgeText+'</span>'+
+      '<img src="'+tourImg(t.image)+'" alt="'+t.title+'" loading="lazy">'+
+      '<span class="tour-loc"><i class="fa-solid fa-location-dot"></i> '+t.country+'</span>'+
+    '</a>'+
+    '<div class="tour-body">'+
+      '<h3><a href="tour.html?slug='+t.slug+'">'+t.title+'</a></h3>'+
+      '<div class="tour-meta"><span><i class="fa-regular fa-clock"></i> '+t.duration+'</span><span><i class="fa-solid fa-users"></i> '+t.people+'</span></div>'+
+      '<div class="tour-foot">'+
+        '<div class="price">'+(t.price==="Cotizar"?"Cotizar":"$"+t.price)+'<small>'+t.priceNote+'</small></div>'+
+        '<a href="tour.html?slug='+t.slug+'" class="tour-btn">Ver tour</a>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+const grid = document.getElementById('grid-all');
+grid.innerHTML = TOURS.map(cardHTML).join('');
+
+function applyFilter(cat){
+  document.querySelectorAll('#grid-all .tour-card').forEach(function(card){
+    const show = cat === 'all' || card.getAttribute('data-cat') === cat;
+    card.style.display = show ? '' : 'none';
+  });
+}
+document.querySelectorAll('#tabs button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('#tabs button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    applyFilter(btn.getAttribute('data-cat'));
+  });
+});
+(function initFromQuery(){
+  const params = new URLSearchParams(location.search);
+  const cat = params.get('cat');
+  if(cat){
+    const btn = document.querySelector('#tabs button[data-cat="'+cat+'"]');
+    if(btn){ btn.click(); }
+  }
+})();
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

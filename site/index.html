@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viajes Angel | Tours Uyuni, Cusco, Amazonas, Perú y Bolivia</title>
+<meta name="description" content="Viajes Angel: 25 años creando rutas de ensueño en Perú y Bolivia. Salar de Uyuni, Cusco, Machu Picchu, La Paz, Copacabana y Amazonas.">
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="loader-flamingo">
+  <div class="loader-text">Viajes <span class="accent" style="color:var(--gold);font-size:1.7rem;">Angel</span></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">Preparando tu próxima aventura...</div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-icon.png" alt="Viajes Angel">
+      <div class="brand-text">
+        <b>Viajes Angel</b>
+        <span>PERÚ · BOLIVIA</span>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="paquetes.html">Paquetes y Tours</a></li>
+        <li><a href="preguntas.html">Preguntas Frecuentes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="nav-cta" href="https://wa.me/51996253851" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Reservar</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Menú"><span></span></button>
+  </div>
+</header>
+<div class="nav-overlay"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div data-reveal="left">
+      <div class="hero-badge"><span class="dot"></span> 25 años uniendo a Perú y Bolivia</div>
+      <h1>Vive el Altiplano <em>como nunca antes</em></h1>
+      <p class="lead">Salimos todo el año hacia el Salar de Uyuni, Cusco, La Paz, el Lago Titicaca y la Amazonía. Guías expertos, unidades 4x4 y experiencias auténticas de principio a fin.</p>
+      <div class="hero-actions">
+        <a href="paquetes.html" class="btn btn-primary"><i class="fa-solid fa-compass"></i> Ver paquetes</a>
+        <a href="https://wa.me/51996253851" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div><b data-count="25" data-suffix="+">0</b><span>Años de experiencia</span></div>
+        <div><b data-count="4800" data-suffix="+">0</b><span>Viajeros felices</span></div>
+        <div><b data-count="30" data-suffix="+">0</b><span>Rutas y destinos</span></div>
+      </div>
+    </div>
+    <div data-reveal="right" data-delay="150">
+      <div class="hero-card">
+        <h4><i class="fa-solid fa-suitcase-rolling" style="color:var(--pink);"></i> Tu tour incluye</h4>
+        <ul>
+          <li><span class="ic"><i class="fa-solid fa-van-shuttle"></i></span> Transporte</li>
+          <li><span class="ic"><i class="fa-solid fa-user-tie"></i></span> Guía experto</li>
+          <li><span class="ic"><i class="fa-solid fa-bed"></i></span> Hospedaje</li>
+          <li><span class="ic"><i class="fa-solid fa-utensils"></i></span> Alimentación</li>
+          <li><span class="ic"><i class="fa-solid fa-camera-retro"></i></span> Fotos del tour</li>
+          <li><span class="ic"><i class="fa-solid fa-shield-heart"></i></span> Asistencia total</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>DESLIZA</span><div class="mouse"></div></div>
+</section>
+
+<!-- ============ OFERTAS ============ -->
+<section class="pad bg-soft">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Ofertas del momento</span>
+        <h2>Paquetes turísticos destacados</h2>
+        <p>Rutas listas para reservar, con salidas garantizadas hacia los destinos más impresionantes de Bolivia y Perú.</p>
+      </div>
+      <a href="paquetes.html" class="btn btn-dark">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="tour-grid" id="grid-ofertas"></div>
+  </div>
+</section>
+
+<!-- ============ DESTINOS ============ -->
+<section class="pad">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Destinos estrella</span>
+        <h2>A dónde te llevamos</h2>
+      </div>
+    </div>
+    <div class="dest-strip">
+      <div class="dest-card" data-reveal="zoom">
+        <img src="assets/img/uyuni-sunset.jpg" alt="Salar de Uyuni" loading="lazy">
+        <div class="info"><h4>Salar de Uyuni</h4><span>Bolivia</span></div>
+      </div>
+      <div class="dest-card" data-reveal="zoom" data-delay="90">
+        <img src="assets/img/lapaz-umbrellas.jpg" alt="La Paz" loading="lazy">
+        <div class="info"><h4>La Paz</h4><span>Bolivia</span></div>
+      </div>
+      <div class="dest-card" data-reveal="zoom" data-delay="180">
+        <img src="assets/img/isladelsol-1.jpg" alt="Isla del Sol" loading="lazy">
+        <div class="info"><h4>Copacabana &amp; Isla del Sol</h4><span>Bolivia</span></div>
+      </div>
+      <div class="dest-card" data-reveal="zoom" data-delay="270">
+        <img src="assets/img/lapaz-3.jpg" alt="Cusco" loading="lazy">
+        <div class="info"><h4>Cusco Imperial</h4><span>Perú</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULARES ============ -->
+<section class="pad bg-soft">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Los favoritos</span>
+        <h2>Los más populares</h2>
+        <p>Las experiencias que nuestros viajeros no dejan de recomendar.</p>
+      </div>
+    </div>
+    <div class="tour-grid" id="grid-populares"></div>
+  </div>
+</section>
+
+<!-- ============ PASOS ============ -->
+<section class="pad">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Así de fácil</span>
+        <h2>Reserva tu viaje en 4 pasos</h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal data-delay="0">
+        <span class="num">1</span>
+        <div class="ic"><i class="fa-solid fa-map-location-dot"></i></div>
+        <h4>Elige tu ruta</h4>
+        <p>Explora nuestros paquetes en Perú, Bolivia y la Amazonía.</p>
+      </div>
+      <div class="step" data-reveal data-delay="90">
+        <span class="num">2</span>
+        <div class="ic"><i class="fa-brands fa-whatsapp"></i></div>
+        <h4>Cotiza por WhatsApp</h4>
+        <p>Nuestro equipo te asesora y arma tu itinerario ideal.</p>
+      </div>
+      <div class="step" data-reveal data-delay="180">
+        <span class="num">3</span>
+        <div class="ic"><i class="fa-solid fa-file-signature"></i></div>
+        <h4>Confirma tu reserva</h4>
+        <p>Asegura tu cupo con un adelanto y recibe tu voucher.</p>
+      </div>
+      <div class="step" data-reveal data-delay="270">
+        <span class="num">4</span>
+        <div class="ic"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <h4>Vive la experiencia</h4>
+        <p>Disfruta tu viaje con guías expertos y total seguridad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LO NUEVO ============ -->
+<section class="pad bg-soft">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Recién llegado</span>
+        <h2>Lo nuevo en Viajes Angel</h2>
+      </div>
+      <a href="paquetes.html" class="btn btn-dark">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="tour-grid" id="grid-nuevo"></div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="pad">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">Voces viajeras</span>
+        <h2>Lo que dicen quienes ya viajaron</h2>
+      </div>
+    </div>
+    <div class="testi-track" data-reveal>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"El Salar de Uyuni con Viajes Angel fue el viaje de mi vida. Todo perfectamente organizado, guía muy atento y paisajes que quitan el aliento."</p>
+        <div class="testi-who"><div class="avatar">M</div><div><b>María Fernanda</b><span>Tour Salar de Uyuni</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Angel Emilio conoce cada rincón de Bolivia. El combo Cusco - Uyuni superó todas mis expectativas, un viaje impecable."</p>
+        <div class="testi-who"><div class="avatar">R</div><div><b>Roberto Chávez</b><span>Combo Perú - Bolivia</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"La Paz y la Isla del Sol con guía local, un servicio cálido y muy profesional. Ya estamos planeando el próximo viaje con ellos."</p>
+        <div class="testi-who"><div class="avatar">L</div><div><b>Lucía Ibarra</b><span>Copacabana + Isla del Sol</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA / FAQ ============ -->
+<section class="pad-sm">
+  <div class="container">
+    <div class="cta-block" data-reveal="zoom">
+      <div>
+        <h2>¿Tienes alguna pregunta sobre tu viaje?</h2>
+        <p>Resolvemos tus dudas sobre itinerarios, altura, clima y documentación para viajar a Bolivia y Perú.</p>
+      </div>
+      <a href="preguntas.html" class="btn btn-primary" style="background:#fff;color:var(--pink-dark);">La respondemos aquí <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGOS ============ -->
+<section class="pad-sm bg-soft">
+  <div class="container">
+    <div class="section-head" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;" data-reveal>
+      <span class="tag">Confianza y seguridad</span>
+      <h2>Formas de pago</h2>
+      <p>Aceptamos transferencias, tarjetas y pagos vía WhatsApp de forma segura.</p>
+    </div>
+    <div class="pay-strip" data-reveal>
+      <i class="fa-brands fa-cc-visa"></i>
+      <i class="fa-brands fa-cc-mastercard"></i>
+      <i class="fa-solid fa-money-bill-transfer"></i>
+      <i class="fa-brands fa-whatsapp"></i>
+      <i class="fa-solid fa-building-columns"></i>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<a class="wa-float" href="https://wa.me/51996253851?text=Hola%20Viajes%20Angel%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quiero%20informaci%C3%B3n." target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="totop" aria-label="Subir"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/footer.js"></script>
+<script>
+function cardHTML(t){
+  return '<div class="tour-card" data-reveal>'+
+    '<a href="tour.html?slug='+t.slug+'" class="tour-media">'+
+      '<span class="badge '+t.badge+'">'+t.badgeText+'</span>'+
+      '<img src="'+tourImg(t.image)+'" alt="'+t.title+'" loading="lazy">'+
+      '<span class="tour-loc"><i class="fa-solid fa-location-dot"></i> '+t.country+'</span>'+
+    '</a>'+
+    '<div class="tour-body">'+
+      '<h3><a href="tour.html?slug='+t.slug+'">'+t.title+'</a></h3>'+
+      '<div class="tour-meta"><span><i class="fa-regular fa-clock"></i> '+t.duration+'</span><span><i class="fa-solid fa-users"></i> '+t.people+'</span></div>'+
+      '<div class="tour-foot">'+
+        '<div class="price">'+(t.price==="Cotizar"?"Cotizar":"$"+t.price)+'<small>'+t.priceNote+'</small></div>'+
+        '<a href="tour.html?slug='+t.slug+'" class="tour-btn">Ver tour</a>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+document.getElementById('grid-ofertas').innerHTML = TOURS.slice(0,6).map(cardHTML).join('');
+document.getElementById('grid-populares').innerHTML = TOURS.filter(function(t){return t.badge==='pop';}).map(cardHTML).join('');
+document.getElementById('grid-nuevo').innerHTML = TOURS.filter(function(t){return t.badge==='new';}).map(cardHTML).join('');
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
