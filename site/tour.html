@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Tour | Viajes Angel</title>
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="loader">
+  <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="loader-flamingo">
+  <div class="loader-text">Viajes <span class="accent" style="color:var(--gold);font-size:1.7rem;">Angel</span></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">Preparando tu próxima aventura...</div>
+</div>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="brand-icon">
+      <div class="brand-text"><img src="assets/img/logo-wordmark.png" alt="Viajes Angel" class="brand-word"><span>PERÚ · BOLIVIA</span></div>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="paquetes.html">Paquetes y Tours</a></li>
+        <li><a href="preguntas.html">Preguntas Frecuentes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="nav-cta" href="https://wa.me/51956713491" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Reservar</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Menú"><span></span></button>
+  </div>
+</header>
+<div class="nav-overlay"></div>
+
+<section class="page-hero" id="tour-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> <i class="fa-solid fa-chevron-right" style="font-size:.6rem;"></i> <a href="paquetes.html">Paquetes y Tours</a> <i class="fa-solid fa-chevron-right" style="font-size:.6rem;"></i> <span id="crumb-title"></span></div>
+    <h1 id="tour-title" data-reveal></h1>
+    <p id="tour-summary" data-reveal data-delay="100"></p>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="container detail-grid">
+    <div>
+      <div class="detail-gallery" data-reveal>
+        <img id="tour-image" src="" alt="">
+      </div>
+      <div class="detail-tags" id="tour-tags" data-reveal></div>
+
+      <div class="detail-block" data-reveal>
+        <h3><i class="fa-solid fa-route" style="color:var(--pink);"></i> Itinerario</h3>
+        <div id="tour-itinerary"></div>
+      </div>
+
+      <div class="detail-block" data-reveal>
+        <h3><i class="fa-solid fa-circle-check" style="color:var(--green);"></i> El programa incluye</h3>
+        <ul class="detail-list ok" id="tour-incluye"></ul>
+      </div>
+
+      <div class="detail-block" data-reveal>
+        <h3><i class="fa-solid fa-circle-xmark" style="color:var(--pink-dark);"></i> No incluye</h3>
+        <ul class="detail-list no" id="tour-no-incluye"></ul>
+      </div>
+
+      <div class="detail-block" data-reveal>
+        <h3><i class="fa-solid fa-backpack" style="color:var(--gold);"></i> ¿Qué llevar?</h3>
+        <ul class="detail-list ok" id="tour-llevar"></ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="book-card" data-reveal="right">
+        <div class="price-big" id="tour-price"></div>
+        <div class="row"><span>Duración</span><b id="tour-duration"></b></div>
+        <div class="row"><span>Grupo</span><b id="tour-people"></b></div>
+        <div class="row"><span>Destino</span><b id="tour-country"></b></div>
+        <hr>
+        <a href="#" id="wa-cotizar" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp</a>
+        <a href="#" id="wa-comprar" target="_blank" rel="noopener" class="btn btn-dark"><i class="fa-solid fa-ticket"></i> Reservar ahora</a>
+        <p class="form-note"><i class="fa-solid fa-shield-heart"></i> Pago seguro · Asistencia 24/7 · Guías certificados</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad-sm bg-soft">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="tag">También te puede interesar</span>
+        <h2>Otras rutas populares</h2>
+      </div>
+    </div>
+    <div class="tour-grid" id="grid-related"></div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<a class="wa-float" id="wa-float" href="https://wa.me/51956713491" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="totop" aria-label="Subir"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/footer.js"></script>
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug') || TOURS[0].slug;
+  const t = TOURS.find(function(x){ return x.slug === slug; }) || TOURS[0];
+
+  document.getElementById('page-title').textContent = t.title + ' | Viajes Angel';
+  document.getElementById('crumb-title').textContent = t.title;
+  document.getElementById('tour-title').textContent = t.title;
+  document.getElementById('tour-summary').textContent = t.summary;
+  document.getElementById('tour-image').src = tourImg(t.image);
+  document.getElementById('tour-image').alt = t.title;
+  document.getElementById('tour-hero').style.setProperty('--bg-img', "url('"+tourImg(t.gallery[1]||t.image)+"')");
+
+  document.getElementById('tour-tags').innerHTML = t.tags.map(function(tag){ return '<span>'+tag+'</span>'; }).join('');
+
+  document.getElementById('tour-itinerary').innerHTML = t.itinerario.map(function(it){
+    return '<div class="day-item"><b>'+it.t+'</b><p>'+it.d+'</p></div>';
+  }).join('');
+
+  document.getElementById('tour-incluye').innerHTML = t.incluye.map(function(x){
+    return '<li><i class="fa-solid fa-check"></i> '+x+'</li>';
+  }).join('');
+  document.getElementById('tour-no-incluye').innerHTML = t.noIncluye.map(function(x){
+    return '<li><i class="fa-solid fa-xmark"></i> '+x+'</li>';
+  }).join('');
+  document.getElementById('tour-llevar').innerHTML = t.llevar.map(function(x){
+    return '<li><i class="fa-solid fa-suitcase"></i> '+x+'</li>';
+  }).join('');
+
+  document.getElementById('tour-price').innerHTML = (t.price === 'Cotizar' ? 'Cotizar' : '$'+t.price) + '<small>'+t.priceNote+'</small>';
+  document.getElementById('tour-duration').textContent = t.duration;
+  document.getElementById('tour-people').textContent = t.people;
+  document.getElementById('tour-country').textContent = t.country;
+
+  const waText = encodeURIComponent('Hola Viajes Angel, quiero cotizar el tour: ' + t.title);
+  document.getElementById('wa-cotizar').href = 'https://wa.me/51956713491?text=' + waText;
+  document.getElementById('wa-comprar').href = 'https://wa.me/51956713491?text=' + waText;
+  document.getElementById('wa-float').href = 'https://wa.me/51956713491?text=' + waText;
+
+  function cardHTML(x){
+    return '<div class="tour-card" data-reveal>'+
+      '<a href="tour.html?slug='+x.slug+'" class="tour-media">'+
+        '<span class="badge '+x.badge+'">'+x.badgeText+'</span>'+
+        '<img src="'+tourImg(x.image)+'" alt="'+x.title+'" loading="lazy">'+
+        '<span class="tour-loc"><i class="fa-solid fa-location-dot"></i> '+x.country+'</span>'+
+      '</a>'+
+      '<div class="tour-body">'+
+        '<h3><a href="tour.html?slug='+x.slug+'">'+x.title+'</a></h3>'+
+        '<div class="tour-meta"><span><i class="fa-regular fa-clock"></i> '+x.duration+'</span></div>'+
+        '<div class="tour-foot">'+
+          '<div class="price">'+(x.price==="Cotizar"?"Cotizar":"$"+x.price)+'</div>'+
+          '<a href="tour.html?slug='+x.slug+'" class="tour-btn">Ver tour</a>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
+  document.getElementById('grid-related').innerHTML = TOURS.filter(function(x){ return x.slug !== t.slug; }).slice(0,3).map(cardHTML).join('');
+})();
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

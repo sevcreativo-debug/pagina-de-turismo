@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto | Viajes Angel</title>
+<meta name="description" content="Contáctanos para cotizar tu próximo viaje a Bolivia, Perú o la Amazonía.">
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="loader">
+  <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="loader-flamingo">
+  <div class="loader-text">Viajes <span class="accent" style="color:var(--gold);font-size:1.7rem;">Angel</span></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-sub">Preparando tu próxima aventura...</div>
+</div>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-icon.png" alt="Viajes Angel" class="brand-icon">
+      <div class="brand-text"><img src="assets/img/logo-wordmark.png" alt="Viajes Angel" class="brand-word"><span>PERÚ · BOLIVIA</span></div>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="paquetes.html">Paquetes y Tours</a></li>
+        <li><a href="preguntas.html">Preguntas Frecuentes</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="nav-cta" href="https://wa.me/51956713491" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Reservar</a></li>
+      </ul>
+    </nav>
+    <button class="burger" aria-label="Menú"><span></span></button>
+  </div>
+</header>
+<div class="nav-overlay"></div>
+
+<section class="page-hero" style="--bg-img:url('assets/img/isladelsol-1.jpg');">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> <i class="fa-solid fa-chevron-right" style="font-size:.6rem;"></i> Contacto</div>
+    <h1 data-reveal>Hablemos de tu próximo viaje</h1>
+    <p data-reveal data-delay="100">Cuéntanos qué destino sueñas conocer y te ayudamos a planearlo.</p>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="container contact-grid">
+    <div data-reveal="left">
+      <span class="tag" style="display:inline-flex;">Suscripción y contacto</span>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.1rem);color:var(--blue-deep);margin:8px 0 24px;">Canales de atención</h2>
+
+      <div class="info-card">
+        <div class="ic"><i class="fa-brands fa-whatsapp"></i></div>
+        <div><h4>WhatsApp</h4><a href="https://wa.me/51956713491" target="_blank" rel="noopener">+51 956 713 491</a></div>
+      </div>
+      <div class="info-card">
+        <div class="ic"><i class="fa-regular fa-envelope"></i></div>
+        <div><h4>Correo electrónico</h4><a href="mailto:grupotrecking@gmail.com">grupotrecking@gmail.com</a></div>
+      </div>
+      <div class="info-card">
+        <div class="ic"><i class="fa-solid fa-location-dot"></i></div>
+        <div><h4>Oficinas</h4><p>La Paz, Bolivia &amp; Cusco, Perú — atendemos coordinaciones en toda la ruta Perú-Bolivia.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="ic"><i class="fa-regular fa-clock"></i></div>
+        <div><h4>Horario de atención</h4><p>Lunes a domingo, 7:00 am – 9:00 pm (hora local)</p></div>
+      </div>
+
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps?q=La%20Paz%2C%20Bolivia&output=embed" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div data-reveal="right" data-delay="120">
+      <form class="form-card" id="contact-form">
+        <h3 style="color:var(--blue-deep);margin-bottom:20px;"><i class="fa-solid fa-paper-plane" style="color:var(--pink);"></i> Suscríbete y cotiza tu tour</h3>
+        <div class="form-row">
+          <div>
+            <label>Nombre completo</label>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div>
+            <label>Teléfono / WhatsApp</label>
+            <input type="tel" name="telefono" placeholder="+51 999 999 999" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Correo electrónico</label>
+            <input type="email" name="correo" placeholder="tucorreo@email.com">
+          </div>
+          <div>
+            <label>Tour de interés</label>
+            <select name="tour" id="tour-select"></select>
+          </div>
+        </div>
+        <label>Mensaje</label>
+        <textarea name="mensaje" placeholder="Cuéntanos las fechas y número de viajeros..."></textarea>
+        <button type="submit" class="btn btn-primary" style="margin-top:18px;width:100%;justify-content:center;"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>
+        <p class="form-note">Al enviar, se abrirá WhatsApp con tu mensaje pre-cargado para confirmar contigo directamente.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<a class="wa-float" href="https://wa.me/51956713491" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="totop" aria-label="Subir"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/footer.js"></script>
+<script>
+const sel = document.getElementById('tour-select');
+sel.innerHTML = '<option value="">Selecciona un tour</option>' + TOURS.map(function(t){
+  return '<option value="'+t.title+'">'+t.title+'</option>';
+}).join('');
+
+document.getElementById('contact-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const msg = 'Hola Viajes Angel, mi nombre es '+f.get('nombre')+
+    '. Teléfono: '+f.get('telefono')+
+    '. Tour de interés: '+(f.get('tour')||'por definir')+
+    '. Mensaje: '+(f.get('mensaje')||'Quisiera más información.');
+  window.open('https://wa.me/51956713491?text='+encodeURIComponent(msg), '_blank');
+});
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
