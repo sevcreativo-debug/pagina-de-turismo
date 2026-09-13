@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrador | Viajes Angel</title>
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<main class="admin-shell">
+  <section class="login-panel" id="login-panel">
+    <div class="login-card">
+      <img src="assets/img/logo-icon.png" alt="Viajes Angel">
+      <h1>Administrador</h1>
+      <p>Ingresa para editar paquetes, precios, imágenes y contacto.</p>
+      <form id="login-form">
+        <label>Contraseña</label>
+        <input id="admin-password" type="password" autocomplete="current-password" placeholder="Contraseña">
+        <button class="admin-primary" type="submit"><i class="fa-solid fa-lock-open"></i> Entrar</button>
+      </form>
+      <small>Contraseña inicial: <b>angel2026</b>. Cámbiala dentro del archivo si necesitas más seguridad.</small>
+    </div>
+  </section>
+
+  <section class="admin-app is-hidden" id="admin-app">
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="index.html">
+        <img src="assets/img/logo-icon.png" alt="Viajes Angel">
+        <span>Viajes Angel</span>
+      </a>
+      <nav>
+        <button class="admin-tab is-active" data-panel="tours-panel"><i class="fa-solid fa-suitcase-rolling"></i> Paquetes</button>
+        <button class="admin-tab" data-panel="contact-panel"><i class="fa-brands fa-whatsapp"></i> Contacto</button>
+        <button class="admin-tab" data-panel="export-panel"><i class="fa-solid fa-file-export"></i> Exportar</button>
+      </nav>
+      <button class="admin-secondary" id="reset-demo"><i class="fa-solid fa-rotate-left"></i> Restaurar datos</button>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <span>Panel privado</span>
+          <h2 id="panel-title">Paquetes</h2>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-secondary" id="preview-site"><i class="fa-solid fa-eye"></i> Ver web</button>
+          <button class="admin-primary" id="save-local"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        </div>
+      </header>
+
+      <section class="admin-panel" id="tours-panel">
+        <div class="admin-toolbar">
+          <input id="tour-search" type="search" placeholder="Buscar paquete">
+          <button class="admin-primary" id="new-tour"><i class="fa-solid fa-plus"></i> Nuevo paquete</button>
+        </div>
+        <div class="tour-admin-layout">
+          <div class="tour-list" id="tour-list"></div>
+          <form class="editor-card" id="tour-form">
+            <div class="editor-head">
+              <div>
+                <span>Editando</span>
+                <h3 id="editing-title">Selecciona un paquete</h3>
+              </div>
+              <label class="switch">
+                <input type="checkbox" name="active" checked>
+                <span></span>
+                Visible
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <div class="field wide">
+                <label>Título</label>
+                <input name="title" required>
+              </div>
+              <div class="field">
+                <label>País</label>
+                <input name="country" required>
+              </div>
+              <div class="field">
+                <label>Categoría</label>
+                <select name="category">
+                  <option value="bolivia">Bolivia</option>
+                  <option value="peru">Perú</option>
+                  <option value="combo">Combo</option>
+                  <option value="amazonas">Amazonas</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Precio</label>
+                <input name="price" placeholder="299">
+              </div>
+              <div class="field">
+                <label>Nota del precio</label>
+                <input name="priceNote" placeholder="por persona">
+              </div>
+              <div class="field">
+                <label>Duración</label>
+                <input name="duration" placeholder="3 días · 2 noches">
+              </div>
+              <div class="field">
+                <label>Tipo de salida</label>
+                <input name="people" placeholder="Grupos reducidos">
+              </div>
+              <div class="field">
+                <label>Etiqueta</label>
+                <select name="badge">
+                  <option value="">Sin etiqueta</option>
+                  <option value="pop">Popular</option>
+                  <option value="new">Nuevo</option>
+                  <option value="combo">Combo</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Texto etiqueta</label>
+                <input name="badgeText">
+              </div>
+              <div class="field wide">
+                <label>Imagen principal</label>
+                <input name="image" placeholder="uyuni-sunset.jpg o https://...">`r`n                <div class="image-preview" id="image-preview"></div>
+              </div>
+              <div class="field wide">
+                <label>Galería</label>
+                <input name="gallery" placeholder="imagen1.jpg, imagen2.jpg">
+              </div>
+              <div class="field wide">
+                <label>Resumen</label>
+                <textarea name="summary" rows="4"></textarea>
+              </div>
+              <div class="field wide">
+                <label>Tags</label>
+                <input name="tags" placeholder="Salar de Uyuni, Laguna Colorada">
+              </div>
+              <div class="field wide">
+                <label>Incluye</label>
+                <textarea name="incluye" rows="4" placeholder="Un punto por línea"></textarea>
+              </div>
+              <div class="field wide">
+                <label>No incluye</label>
+                <textarea name="noIncluye" rows="3" placeholder="Un punto por línea"></textarea>
+              </div>
+              <div class="field wide">
+                <label>Qué llevar</label>
+                <textarea name="llevar" rows="3" placeholder="Un punto por línea"></textarea>
+              </div>
+            </div>
+            <div class="danger-row">
+              <button class="admin-secondary" type="button" id="duplicate-tour"><i class="fa-regular fa-copy"></i> Duplicar</button>
+              <button class="admin-danger" type="button" id="delete-tour"><i class="fa-regular fa-trash-can"></i> Retirar paquete</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="admin-panel is-hidden" id="contact-panel">
+        <form class="editor-card compact-card" id="contact-form">
+          <h3>Datos de contacto</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label>WhatsApp visible</label>
+              <input name="whatsappLabel" value="+51 956 713 491">
+            </div>
+            <div class="field">
+              <label>WhatsApp para enlace</label>
+              <input name="whatsappLink" value="51956713491">
+            </div>
+            <div class="field">
+              <label>Correo</label>
+              <input name="email" value="grupotrecking@gmail.com">
+            </div>
+            <div class="field">
+              <label>Ubicación</label>
+              <input name="location" value="La Paz, Bolivia & Cusco, Perú">
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="admin-panel is-hidden" id="export-panel">
+        <div class="editor-card compact-card">
+          <h3>Exportar cambios</h3>
+          <p>Descarga el archivo actualizado y súbelo a GitHub para que los cambios se vean para todos.</p>
+          <div class="export-actions">
+            <button class="admin-primary" id="download-data"><i class="fa-solid fa-download"></i> Descargar data.js</button>
+            <button class="admin-secondary" id="copy-data"><i class="fa-regular fa-copy"></i> Copiar código</button>
+          </div>
+          <textarea id="export-code" rows="16" readonly></textarea>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
