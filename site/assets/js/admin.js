@@ -6,7 +6,7 @@
   const sourceTours = typeof TOURS !== "undefined" ? TOURS : [];
   const defaultTours = sourceTours.map(function(t){ return Object.assign({active:true}, t); });
   let tours = load(STORAGE_TOURS, defaultTours);
-  if((!Array.isArray(tours) || tours.length === 0) && defaultTours.length){ tours = defaultTours; }
+  if((!Array.isArray(tours) || tours.length === 0) && defaultTours.length){ tours = defaultTours.slice(); }
   let selected = 0;
 
   const contactDefaults = {
@@ -43,18 +43,9 @@
       .replace(/^-+|-+$/g, "") || "nuevo-paquete";
   }
 
-  function splitComma(value){
-    return String(value || "").split(",").map(function(v){ return v.trim(); }).filter(Boolean);
-  }
-
-  function splitLines(value){
-    return String(value || "").split(/\r?\n/).map(function(v){ return v.trim(); }).filter(Boolean);
-  }
-
-  function imageUrl(name){
-    if(!name) return "";
-    return /^https?:\/\//.test(name) ? name : "assets/img/" + name;
-  }
+  function splitComma(value){ return String(value || "").split(",").map(function(v){ return v.trim(); }).filter(Boolean); }
+  function splitLines(value){ return String(value || "").split(/\r?\n/).map(function(v){ return v.trim(); }).filter(Boolean); }
+  function imageUrl(name){ return !name ? "" : (/^(https?:|data:image\/)/.test(name) ? name : "assets/img/" + name); }
 
   function renderList(){
     const q = ($("#tour-search").value || "").toLowerCase();
@@ -69,34 +60,40 @@
       btn.className = "tour-item" + (index === selected ? " is-active" : "");
       btn.innerHTML = "<strong>"+escapeHtml(tour.title)+"</strong><span>"+escapeHtml(tour.country || "")+" · "+escapeHtml(tour.duration || "")+"</span><em>"+(tour.price === "Cotizar" ? "Cotizar" : "$"+escapeHtml(tour.price || "Cotizar"))+"</em>";
       if(tour.active === false) btn.innerHTML += "<span>Oculto</span>";
-      btn.addEventListener("click", function(){
-        selected = index;
-        renderList();
-        fillForm();
-      });
+      btn.addEventListener("click", function(){ selected = index; renderList(); fillForm(); });
       list.appendChild(btn);
     });
-    if(!shown){
-      list.innerHTML = '<div class="empty-admin">No hay paquetes para mostrar. Usa Nuevo paquete para crear uno.</div>';
-    }
+    if(!shown) list.innerHTML = '<div class="empty-admin">No hay paquetes para mostrar. Usa Nuevo paquete para crear uno.</div>';
   }
 
   function renderImagePreview(name){
     const box = $("#image-preview");
     if(!box) return;
-    if(!name){
-      box.textContent = "Escribe el nombre de una imagen o pega una URL.";
-      return;
-    }
+    if(!name){ box.textContent = "Escribe un nombre, pega una URL o sube una imagen."; return; }
     box.innerHTML = '<img src="'+escapeHtml(imageUrl(name))+'" alt="Vista previa de imagen">';
+  }
+
+  function renderGalleryPreview(items){
+    const box = $("#gallery-preview");
+    if(!box) return;
+    const gallery = Array.isArray(items) ? items : [];
+    box.innerHTML = gallery.map(function(item){ return '<img src="'+escapeHtml(imageUrl(item))+'" alt="Imagen de galeria">'; }).join("");
+  }
+
+  function readFiles(files){
+    return Promise.all(Array.prototype.slice.call(files || []).map(function(file){
+      return new Promise(function(resolve, reject){
+        const reader = new FileReader();
+        reader.onload = function(){ resolve(reader.result); };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }));
   }
 
   function fillForm(){
     const tour = tours[selected];
-    if(!tour){
-      $("#editing-title").textContent = "Crea un paquete nuevo";
-      return;
-    }
+    if(!tour){ $("#editing-title").textContent = "Crea un paquete nuevo"; return; }
     const form = $("#tour-form");
     $("#editing-title").textContent = tour.title || "Nuevo paquete";
     form.active.checked = tour.active !== false;
@@ -110,13 +107,14 @@
     form.badge.value = tour.badge || "";
     form.badgeText.value = tour.badgeText || "";
     form.image.value = tour.image || "";
-    renderImagePreview(tour.image || "");
     form.gallery.value = (tour.gallery || []).join(", ");
     form.summary.value = tour.summary || "";
     form.tags.value = (tour.tags || []).join(", ");
     form.incluye.value = (tour.incluye || []).join("\n");
     form.noIncluye.value = (tour.noIncluye || []).join("\n");
     form.llevar.value = (tour.llevar || []).join("\n");
+    renderImagePreview(tour.image || "");
+    renderGalleryPreview(tour.gallery || []);
   }
 
   function readForm(){
@@ -144,6 +142,7 @@
       llevar: splitLines(form.llevar.value)
     });
     renderImagePreview(tours[selected].image || "");
+    renderGalleryPreview(tours[selected].gallery || []);
     renderList();
     renderExport();
   }
@@ -158,72 +157,32 @@
 
   function readContact(){
     const form = $("#contact-form");
-    contact = {
-      whatsappLabel: form.whatsappLabel.value.trim(),
-      whatsappLink: form.whatsappLink.value.trim(),
-      email: form.email.value.trim(),
-      location: form.location.value.trim()
-    };
+    contact = { whatsappLabel:form.whatsappLabel.value.trim(), whatsappLink:form.whatsappLink.value.trim(), email:form.email.value.trim(), location:form.location.value.trim() };
     renderExport();
   }
 
   function dataJs(){
-    const cleanTours = tours.filter(function(t){ return t.active !== false; }).map(function(t){
-      const copy = Object.assign({}, t);
-      delete copy.active;
-      return copy;
-    });
-    return "/* =========================================================\\n" +
-      "   VIAJES ANGEL — datos de tours (fuente única para todas las páginas)\\n" +
-      "   ========================================================= */\\n" +
-      "const TOURS = " + JSON.stringify(cleanTours, null, 2) + ";\\n\\n" +
-      "const CONTACT = " + JSON.stringify(contact, null, 2) + ";\\n\\n" +
-      "function tourImg(name){ return /^https?:\\/\\//.test(name) ? name : \"assets/img/\" + name; }\\n";
+    const cleanTours = tours.filter(function(t){ return t.active !== false; }).map(function(t){ const copy = Object.assign({}, t); delete copy.active; return copy; });
+    return "/* =========================================================\n" +
+      "   VIAJES ANGEL — datos de tours (fuente única para todas las páginas)\n" +
+      "   ========================================================= */\n" +
+      "const TOURS = " + JSON.stringify(cleanTours, null, 2) + ";\n\n" +
+      "const CONTACT = " + JSON.stringify(contact, null, 2) + ";\n\n" +
+      "function tourImg(name){ return /^(https?:|data:image\\/)/.test(name) ? name : \"assets/img/\" + name; }\n";
   }
 
-  function renderExport(){
-    const out = $("#export-code");
-    if(out) out.value = dataJs();
-  }
-
-  function download(){
-    const blob = new Blob([dataJs()], {type:"text/javascript"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "data.js";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function escapeHtml(value){
-    return String(value || "").replace(/[&<>"']/g, function(ch){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch];
-    });
-  }
-
-  function toast(message){
-    const note = document.createElement("div");
-    note.textContent = message;
-    note.style.cssText = "position:fixed;right:18px;bottom:18px;background:#073e5d;color:#fff;padding:12px 16px;border-radius:12px;font-weight:800;z-index:50;box-shadow:0 16px 40px rgba(0,0,0,.18)";
-    document.body.appendChild(note);
-    setTimeout(function(){ note.remove(); }, 2200);
-  }
+  function renderExport(){ const out = $("#export-code"); if(out) out.value = dataJs(); }
+  function download(){ const blob = new Blob([dataJs()], {type:"text/javascript"}); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "data.js"; a.click(); URL.revokeObjectURL(url); }
+  function escapeHtml(value){ return String(value || "").replace(/[&<>"']/g, function(ch){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]; }); }
+  function toast(message){ const note = document.createElement("div"); note.textContent = message; note.style.cssText = "position:fixed;right:18px;bottom:18px;background:#073e5d;color:#fff;padding:12px 16px;border-radius:12px;font-weight:800;z-index:50;box-shadow:0 16px 40px rgba(0,0,0,.18)"; document.body.appendChild(note); setTimeout(function(){ note.remove(); }, 2200); }
 
   $("#login-form").addEventListener("submit", function(e){
     e.preventDefault();
     if($("#admin-password").value === PASSWORD){
-      localStorage.removeItem(STORAGE_TOURS);
       $("#login-panel").classList.add("is-hidden");
       $("#admin-app").classList.remove("is-hidden");
-      tours = defaultTours.slice();
-      renderList();
-      fillForm();
-      fillContact();
-      renderExport();
-    }else{
-      toast("Contraseña incorrecta.");
-    }
+      renderList(); fillForm(); fillContact(); renderExport();
+    }else toast("Contraseña incorrecta.");
   });
 
   $$(".admin-tab").forEach(function(tab){
@@ -243,66 +202,17 @@
   $("#save-local").addEventListener("click", save);
   $("#preview-site").addEventListener("click", function(){ window.open("index.html", "_blank"); });
   $("#download-data").addEventListener("click", download);
-  $("#copy-data").addEventListener("click", function(){
-    navigator.clipboard.writeText(dataJs()).then(function(){ toast("Código copiado."); });
-  });
+  $("#copy-data").addEventListener("click", function(){ navigator.clipboard.writeText(dataJs()).then(function(){ toast("Código copiado."); }); });
+  $("#main-image-file").addEventListener("change", function(e){ readFiles(e.target.files).then(function(images){ if(!images.length || !tours[selected]) return; tours[selected].image = images[0]; fillForm(); save(); toast("Imagen principal cargada."); e.target.value = ""; }); });
+  $("#gallery-files").addEventListener("change", function(e){ readFiles(e.target.files).then(function(images){ if(!images.length || !tours[selected]) return; tours[selected].gallery = (tours[selected].gallery || []).concat(images); fillForm(); save(); toast("Imagenes agregadas a la galeria."); e.target.value = ""; }); });
+  $("#clear-main-image").addEventListener("click", function(){ if(!tours[selected]) return; tours[selected].image = ""; fillForm(); save(); });
+  $("#clear-gallery").addEventListener("click", function(){ if(!tours[selected]) return; tours[selected].gallery = []; fillForm(); save(); });
+
   $("#new-tour").addEventListener("click", function(){
-    tours.unshift({
-      active:true,
-      slug:"nuevo-paquete-" + Date.now(),
-      title:"Nuevo paquete",
-      country:"Bolivia",
-      category:"bolivia",
-      badge:"new",
-      badgeText:"Nuevo",
-      price:"Cotizar",
-      priceNote:"por persona",
-      duration:"1 día",
-      people:"Salidas privadas",
-      image:"uyuni-sunset.jpg",
-      gallery:["uyuni-sunset.jpg"],
-      summary:"",
-      tags:[],
-      incluye:[],
-      noIncluye:[],
-      llevar:[],
-      itinerario:[]
-    });
-    selected = 0;
-    renderList();
-    fillForm();
-    save();
+    tours.unshift({ active:true, slug:"nuevo-paquete-" + Date.now(), title:"Nuevo paquete", country:"Bolivia", category:"bolivia", badge:"new", badgeText:"Nuevo", price:"Cotizar", priceNote:"por persona", duration:"1 dia", people:"Salidas privadas", image:"uyuni-sunset.jpg", gallery:["uyuni-sunset.jpg"], summary:"", tags:[], incluye:[], noIncluye:[], llevar:[], itinerario:[] });
+    selected = 0; renderList(); fillForm(); save();
   });
-  $("#duplicate-tour").addEventListener("click", function(){
-    if(!tours[selected]) return;
-    const copy = JSON.parse(JSON.stringify(tours[selected]));
-    copy.slug = slugify(copy.title) + "-copia-" + Date.now();
-    copy.title = copy.title + " copia";
-    tours.splice(selected + 1, 0, copy);
-    selected += 1;
-    renderList();
-    fillForm();
-    save();
-  });
-  $("#delete-tour").addEventListener("click", function(){
-    if(!tours[selected]) return;
-    if(!confirm("¿Retirar este paquete del catálogo?")) return;
-    tours.splice(selected, 1);
-    selected = Math.max(0, selected - 1);
-    renderList();
-    fillForm();
-    save();
-  });
-  $("#reset-demo").addEventListener("click", function(){
-    if(!confirm("¿Restaurar los datos originales del navegador?")) return;
-    localStorage.removeItem(STORAGE_TOURS);
-    localStorage.removeItem(STORAGE_CONTACT);
-    tours = defaultTours.slice();
-    contact = contactDefaults;
-    selected = 0;
-    renderList();
-    fillForm();
-    fillContact();
-    renderExport();
-  });
+  $("#duplicate-tour").addEventListener("click", function(){ if(!tours[selected]) return; const copy = JSON.parse(JSON.stringify(tours[selected])); copy.slug = slugify(copy.title) + "-copia-" + Date.now(); copy.title = copy.title + " copia"; tours.splice(selected + 1, 0, copy); selected += 1; renderList(); fillForm(); save(); });
+  $("#delete-tour").addEventListener("click", function(){ if(!tours[selected]) return; if(!confirm("¿Retirar este paquete del catalogo?")) return; tours.splice(selected, 1); selected = Math.max(0, selected - 1); renderList(); fillForm(); save(); });
+  $("#reset-demo").addEventListener("click", function(){ if(!confirm("¿Restaurar los datos originales del navegador?")) return; localStorage.removeItem(STORAGE_TOURS); localStorage.removeItem(STORAGE_CONTACT); tours = defaultTours.slice(); contact = contactDefaults; selected = 0; renderList(); fillForm(); fillContact(); renderExport(); });
 })();
